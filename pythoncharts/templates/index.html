@@ -41,6 +41,8 @@
               <option value="TPJSA">TPJ - SA</option>
               <option value="JTJCBE">JTJ - CBE</option>
               <option value="CBEJTJ">CBE - JTJ</option>
+              <option value="SACBE">SA - CBE</option>
+              <option value="CBESA">CBE - SA</option>
               <option value="EDTPJ">ED - TPJ</option>
               <option value="TPJED">TPJ - ED</option>
               <option value="EDIGU">ED - IGU</option>
@@ -167,6 +169,8 @@
                     <td  ng-show="cautioncheckboxKRRTPJ"><input   type="checkbox" ng-model="cautioncheckboxvalue2" ng-disabled="cautioncheckboxvalue1"> <label class="col-form-label">KRR - TPJ</label></td>
                      <td  ng-show="cautioncheckboxJTJIGU"><input   type="checkbox" ng-model="cautioncheckboxvalue1" ng-disabled="cautioncheckboxvalue2"> <label class="col-form-label">JTJ - IGU</label></td>
                     <td  ng-show="cautioncheckboxIGUCBE"><input   type="checkbox" ng-model="cautioncheckboxvalue2" ng-disabled="cautioncheckboxvalue1"> <label class="col-form-label">IGU - CBE</label></td>
+                    <td  ng-show="cautioncheckboxSAIGU"><input   type="checkbox" ng-model="cautioncheckboxvalue1" ng-disabled="cautioncheckboxvalue2"> <label class="col-form-label">SA - IGU</label></td>
+                  
                     <td><input  class="form-control"  type="text" ng-model="startingkm" placeholder="Ex:- 111/11" /></td>
                     <td><input  class="form-control" type="text" ng-model="endingkm"  /></td>
                     <td><input  class="form-control" type="number" ng-model="Speed" /></td>
@@ -518,6 +522,22 @@
             $scope.cautioncheckboxIGUCBE = true;
             $scope.Cautionorders = [];
           }
+          if ($scope.dropvalue == "SACBE")
+          {
+            $scope.dropvalueinput = "SA"
+            $scope.cautioncheckbox = true;
+            $scope.cautioncheckboxSAIGU = true;
+            $scope.cautioncheckboxIGUCBE = true;
+            $scope.Cautionorders = [];
+          }
+          if ($scope.dropvalue == "CBESA")
+          { 
+            $scope.dropvalueinput = "CBE"
+            $scope.cautioncheckbox = true;
+            $scope.cautioncheckboxSAIGU = true;
+            $scope.cautioncheckboxIGUCBE = true;
+            $scope.Cautionorders = [];
+          }
           if ($scope.dropvalue == "EDTPJ")
           {
             $scope.dropvalueinput = "ED"
@@ -628,7 +648,7 @@
                   }
                   }
                 }
-                else if (($scope.dropvalue == "TPJSA") || ($scope.dropvalue == "SATPJ") || ($scope.dropvalue == "JTJCBE") || ($scope.dropvalue == "CBEJTJ"))
+                else if (($scope.dropvalue == "TPJSA") || ($scope.dropvalue == "SATPJ") || ($scope.dropvalue == "JTJCBE") || ($scope.dropvalue == "CBEJTJ") || ($scope.dropvalue == "SACBE") || ($scope.dropvalue == "CBESA"))
                 {
                   if ($scope.cautioncheckboxvalue1 == false && $scope.cautioncheckboxvalue2 == false)
                   {
@@ -655,6 +675,17 @@
                     if ($scope.cautioncheckboxvalue1 == true)
                     {
                       newcautionorder.cautioncheckboxvalue = "JTJ - IGU";
+                    }
+                    if ($scope.cautioncheckboxvalue2 == true)
+                    {
+                      newcautionorder.cautioncheckboxvalue = "IGU - CBE";
+                    }
+                  }
+                  if ($scope.dropvalue == "CBESA" || $scope.dropvalue == "SACBE")
+                  {
+                    if ($scope.cautioncheckboxvalue1 == true)
+                    {
+                      newcautionorder.cautioncheckboxvalue = "SA - IGU";
                     }
                     if ($scope.cautioncheckboxvalue2 == true)
                     {
@@ -699,6 +730,18 @@
                       newcautionorder.cautioncheckboxvalue = "IGU - CBE";
                     }
                   }
+                  if ($scope.dropvalue == "CBESA" || $scope.dropvalue == "SACBE")
+                  {
+                    if ($scope.cautioncheckboxvalue1 == true)
+                    {
+                      newcautionorder.cautioncheckboxvalue = "SA - IGU";
+                    }
+                    if ($scope.cautioncheckboxvalue2 == true)
+                    {
+                      newcautionorder.cautioncheckboxvalue = "IGU - CBE";
+                    }
+                  }
+
                   $scope.Cautionorders.push(newcautionorder);
 
                   //Clear the TextBoxes.

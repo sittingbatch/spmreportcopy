@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-4zp9l#qndnmsxiz+qhd37*lu24q63p94a#@zy-ny_1#m2#bl*x
 DEBUG = True
 
 ALLOWED_HOSTS = ['*','*.spmreportautomation.com','www.spmreportautomation.com','http://spmreportautomation.com','https://web-production-402f.up.railway.app', 'http://www.spmreportautomation.com']
-#CSRF_TRUSTED_ORIGINS = ['*','*.spmreportautomation.com','www.spmreportautomation.com','http://spmreportautomation.com','https://web-production-402f.up.railway.app','http://www.spmreportautomation.com']
+CSRF_TRUSTED_ORIGINS = ['*','*.spmreportautomation.com','www.spmreportautomation.com','http://spmreportautomation.com','https://web-production-402f.up.railway.app','http://www.spmreportautomation.com']
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SESSION_COOKIE_SECURE = True
@@ -100,13 +100,13 @@ WSGI_APPLICATION = 'pythoncharts.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-"""
 
 #somechart/chartspm
 DATABASES = {
@@ -132,6 +132,7 @@ DATABASES = {
 }
 
 
+"""
 
 #crunchy bridge/spmreport
 
@@ -146,7 +147,6 @@ DATABASES = {
     }
 }
 
-"""
 
 
 # Password validation
