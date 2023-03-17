@@ -19,8 +19,8 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template import loader
-from plotly.offline import plot
-import plotly.graph_objs as go
+#from plotly.offline import plot
+#import plotly.graph_objs as go
 
 
 
