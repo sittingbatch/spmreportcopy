@@ -158,12 +158,14 @@ def chartcreation (request) :
         for i in range(distancerow,rowcount):
             if i == 0:
                 i = 1
-            distancelist1.append(sh1.cell(i,distancecolumn).value)
+            if (type(sh1.cell(i,distancecolumn).value).__name__) != "NoneType":
+                distancelist1.append(sh1.cell(i,distancecolumn).value)
 
         for s in range(speedrow,rowcount):
             if s == 0:
                 s = 1
-            speedlist1.append(sh1.cell(s,speedcolumn).value)
+            if (type(sh1.cell(s,speedcolumn).value).__name__) != "NoneType":
+                speedlist1.append(sh1.cell(s,speedcolumn).value)
         #print(len(speedlist))
         #print(len(distancelist))
         speedlist = list(map(float,speedlist1))
@@ -609,25 +611,44 @@ def chartcreation (request) :
         for i in range(daterow,rowcount):
             if i == 0:
                 i = 1
-            datelist.append(sh1.cell(i,datecolumn).value)
+            if (type(sh1.cell(i,datecolumn).value).__name__) != "NoneType":
+                datelist.append(sh1.cell(i,datecolumn).value)
+            else:
+                print("found date")
 
 
         for i in range(timerow,rowcount):
             if i==0:
                 i = 1
-            timelist.append(sh1.cell(i,timecolumn).value)
+            if (type(sh1.cell(i,timecolumn).value).__name__) != "NoneType":
+                timelist.append(sh1.cell(i,timecolumn).value)
+            else:
+                print("found time")
         #print(timelist)
 
 
         for i in range(distancerow,rowcount):
             if i == 0:
                 i = 1
-            distancelist1.append(sh1.cell(i,distancecolumn).value)
+            if (type(sh1.cell(i,distancecolumn).value).__name__) != "NoneType":
+                #print("found")
+                distancelist1.append(sh1.cell(i,distancecolumn).value)
+            else:
+                print("found distance")
+        #print(type(sh1.cell(28,2).value).__name__)
+        #print(type(sh1.cell(29,2).value))
+
+     
+
 
         for s in range(speedrow,rowcount):
             if s == 0:
                 s = 1
-            speedlist1.append(sh1.cell(s,speedcolumn).value)
+            if (type(sh1.cell(s,speedcolumn).value).__name__) != "NoneType":
+                #print("found speed")
+                speedlist1.append(sh1.cell(s,speedcolumn).value)
+            else:
+                print("found speed")
         #print(len(speedlist))
         #print(speedlist1)
         #print(len(distancelist))
@@ -1298,8 +1319,8 @@ def chartcreation (request) :
                 #datesplit1.append(datelist[i])
                 if (type(datelist[i]).__name__) == "str":
                     datesplit = datelist[i].split('/')
-                    print(datesplit)
-                    print("jjjjj")
+                    #print(datesplit)
+                    #print("jjjjj")
                     if len(datesplit[2]) == 4:
                         datelist[i] = datetime.strptime(datelist[i], '%d/%m/%Y')
                     if len(datesplit[2]) == 2:
