@@ -25,8 +25,8 @@ from django.contrib.auth import login,authenticate
 import openpyxl
 from django.template import Context
 from openpyxl import workbook,load_workbook
-#from plotly.offline import plot
-#import plotly.graph_objs as go
+from plotly.offline import plot
+import plotly.graph_objs as go
 
 import json
 
