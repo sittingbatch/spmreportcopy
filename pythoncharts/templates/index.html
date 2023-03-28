@@ -39,6 +39,8 @@
               <option value="TPTED">TPT - ED</option>
               <option value="SATPJ">SA - TPJ</option>
               <option value="TPJSA">TPJ - SA</option>
+              <option value="SAMTPP">SA - MTPP</option>
+              <option value="MTPPSA">MTPP - SA</option>
               <option value="JTJCBE">JTJ - CBE</option>
               <option value="CBEJTJ">CBE - JTJ</option>
               <option value="SACBE">SA - CBE</option>
@@ -170,6 +172,8 @@
                      <td  ng-show="cautioncheckboxJTJIGU"><input   type="checkbox" ng-model="cautioncheckboxvalue1" ng-disabled="cautioncheckboxvalue2"> <label class="col-form-label">JTJ - IGU</label></td>
                     <td  ng-show="cautioncheckboxIGUCBE"><input   type="checkbox" ng-model="cautioncheckboxvalue2" ng-disabled="cautioncheckboxvalue1"> <label class="col-form-label">IGU - CBE</label></td>
                     <td  ng-show="cautioncheckboxSAIGU"><input   type="checkbox" ng-model="cautioncheckboxvalue1" ng-disabled="cautioncheckboxvalue2"> <label class="col-form-label">SA - IGU</label></td>
+                    <td  ng-show="cautioncheckboxSAMGSJ"><input   type="checkbox" ng-model="cautioncheckboxvalue1" ng-disabled="cautioncheckboxvalue2"> <label class="col-form-label">SA - MGSJ</label></td>
+                    <td  ng-show="cautioncheckboxMGSJMTPP"><input   type="checkbox" ng-model="cautioncheckboxvalue2" ng-disabled="cautioncheckboxvalue1"> <label class="col-form-label">MGSJ - MTPP</label></td>
                   
                     <td><input  class="form-control"  type="text" ng-model="startingkm" placeholder="Ex:- 111/11" /></td>
                     <td><input  class="form-control" type="text" ng-model="endingkm"  /></td>
@@ -506,6 +510,22 @@
             $scope.cautioncheckboxSAKRR = true;
             $scope.Cautionorders = [];
           }
+           if ($scope.dropvalue == "SAMTPP")
+          {
+            $scope.dropvalueinput = "SA"
+            $scope.cautioncheckbox = true;
+            $scope.cautioncheckboxMGSJMTPP = true;
+            $scope.cautioncheckboxSAMGSJ = true;
+            $scope.Cautionorders = [];
+          }
+          if ($scope.dropvalue == "MTPPSA")
+          {
+            $scope.dropvalueinput = "MTPP"
+            $scope.cautioncheckbox = true;
+            $scope.cautioncheckboxMGSJMTPP = true;
+            $scope.cautioncheckboxSAMGSJ = true;
+            $scope.Cautionorders = [];
+          }
           if ($scope.dropvalue == "JTJCBE")
           {
             $scope.dropvalueinput = "JTJ"
@@ -648,7 +668,7 @@
                   }
                   }
                 }
-                else if (($scope.dropvalue == "TPJSA") || ($scope.dropvalue == "SATPJ") || ($scope.dropvalue == "JTJCBE") || ($scope.dropvalue == "CBEJTJ") || ($scope.dropvalue == "SACBE") || ($scope.dropvalue == "CBESA"))
+                else if (($scope.dropvalue == "TPJSA") || ($scope.dropvalue == "SATPJ") || ($scope.dropvalue == "MTPPSA") || ($scope.dropvalue == "SAMTPP") || ($scope.dropvalue == "JTJCBE") || ($scope.dropvalue == "CBEJTJ") || ($scope.dropvalue == "SACBE") || ($scope.dropvalue == "CBESA"))
                 {
                   if ($scope.cautioncheckboxvalue1 == false && $scope.cautioncheckboxvalue2 == false)
                   {
@@ -668,6 +688,17 @@
                     if ($scope.cautioncheckboxvalue2 == true)
                     {
                       newcautionorder.cautioncheckboxvalue = "KRR - TPJ";
+                    }
+                  }
+                  if ($scope.dropvalue == "MTPPSA" || $scope.dropvalue == "SAMTPP")
+                  {
+                    if ($scope.cautioncheckboxvalue1 == true)
+                    {
+                      newcautionorder.cautioncheckboxvalue = "SA - MGSJ";
+                    }
+                    if ($scope.cautioncheckboxvalue2 == true)
+                    {
+                      newcautionorder.cautioncheckboxvalue = "MGSJ - MTPP";
                     }
                   }
                   if ($scope.dropvalue == "CBEJTJ" || $scope.dropvalue == "JTJCBE")
@@ -717,6 +748,17 @@
                     if ($scope.cautioncheckboxvalue2 == true)
                     {
                       newcautionorder.cautioncheckboxvalue = "KRR - TPJ";
+                    }
+                  }
+                  if ($scope.dropvalue == "MTPPSA" || $scope.dropvalue == "SAMTPP")
+                  {
+                    if ($scope.cautioncheckboxvalue1 == true)
+                    {
+                      newcautionorder.cautioncheckboxvalue = "SA - MGSJ";
+                    }
+                    if ($scope.cautioncheckboxvalue2 == true)
+                    {
+                      newcautionorder.cautioncheckboxvalue = "MGSJ - MTPP";
                     }
                   }
                   if ($scope.dropvalue == "CBEJTJ" || $scope.dropvalue == "JTJCBE")

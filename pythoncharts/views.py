@@ -116,6 +116,27 @@ def chartcreation (request) :
         dstn = [0.00,2.80,9.50,17.90,24.40,33.00,42.60,50.70,64.15,73.78,81.75,87.21,94.71,100.79,105.70,114.10,121.90,126.90,139.40,150.10,160.00]
         dstnannot = ["0.00","2.80","9.50","17.90","24.40","33.00","42.60","50.70","64.15","73.78","81.75","87.21","94.71","100.79","105.70","114.10","121.90","126.90","139.40","150.10","160.00"]
 
+    if route == "SAMTPP":
+        signalkm = ["0","0.6","1.3","1.9","2.9","3.4","4.1","5.1","6.03","8.07","10.07","11.83","12.07","12.23","13.25","17.17","18.17","22.05","23.15","25.31","26.21","27.95","28.01","28.27","31.21","33.13","34.13","35.33","37.39","38.53","39.23","39.73","40.43","40.63","42.43","43.43","44.13"]
+        signalname = ["SA","STARTER","LSS","DISTANT","HOME","MGSJ","ISSTARTER1","ISS2","LSS","DISTANT","HOME","OML","STARTER","LSS/GD","GSS","IBD","IBSS","GD","GSS","DISTANT","HOME","MCRD","STARTER","LSS","GD","GSS","GD","GSS","DISTANT","GSS","HOME","MTDM","STARTER","LSS","DISTANT","HOME","MTPP"]
+        nstn = ["SA","MGSJ","OML","MCRD","MTDM","MTPP"]
+        annot = ["SA","MGSJ","OML","MCRD","MTDM","MTPP"]
+        dstn = [0,3.4,11.83,27.95,39.73,44.13]
+        dstnannot = ["0","3.4","11.83","27.95","39.73","44.13"]
+
+    if route == "MTPPSA":
+        signalkm = ["0","0.3","0.9","2.8","4.9","5.6","5.9","6.1","6.3","9.2","10.1","11.1","12.3","16","17","17.8","18.2","19.1","20.3","21.4","25.1","27.1","30.3","31.3","32.3","33.5","34","34.2","37.8","38.9","39.5","40","40.9","41.3","42.08","43.1","44.98"]
+        signalname = ["MTPP","STARTER","LSS","DISTANT","HOME","MTDM","STARTER","LSS/GD","GSS","GD","GSS","GD","GSS","DISTANT","HOME","MCRD","STARTER","LSS","GD","GSS","IBD","IBSS","GD","GSS/D","HOME","OML","STARTER","LSS","DISTANT","HOME","MGSJ","ISSTARTER 1","ISS 2","LSS","DISTANT","HOME","SALEM"]
+        nstn = ["MTPP","MTDM","MCRD","OML","MGSJ","SALEM"]
+        annot = ["MTPP","MTDM","MCRD","OML","MGSJ","SALEM"]
+        dstn = [0,5.6,17.8,33.5,39.5,44.98]
+        dstnannot = ["0","5.6","17.8","33.5","39.5","44.98"]
+
+
+
+
+
+
 
     if request.method == "POST" and plotststn != "None":
         """speedlist = data.get("spdlist")
@@ -1887,7 +1908,7 @@ def chartcreation (request) :
             skm.append(req[i]['startingkm'])
             ekm.append(req[i]['endingkm'])
             speed.append(req[i]['Speed'])
-            if route == "TPJSA" or route == "SATPJ" or route == "CBEJTJ" or route == "JTJCBE" or route == "CBESA" or route == "SACBE":
+            if route == "TPJSA" or route == "SATPJ" or route == "MTPPSA" or route == "SAMTPP" or route == "CBEJTJ" or route == "JTJCBE" or route == "CBESA" or route == "SACBE":
                 cautioncheckboxvalue.append(req[i]['cautioncheckboxvalue'])
                 #route = "JTJED"
 
@@ -1947,6 +1968,12 @@ def chartcreation (request) :
         if route == "TPJSA":
             cautiondata = 1
             cautionmin = "TPJSA"
+        if route == "SAMTPP":
+            cautiondata = 1
+            cautionmin = "SAMTPP"
+        if route == "MTPPSA":
+            cautiondata = 1
+            cautionmin = "MTPPSA"
         if route == "CBEJTJ":
             cautiondata = 1
             cautionmin = "CBEJTJ"
@@ -2003,9 +2030,9 @@ def chartcreation (request) :
                 sa[i] = int(sa[i])
                 #print(sa[i])
                 #print(sb[i])
-                if route == "JTJED" or route == "EDJTJ" or route == "TPTED" or route == "EDTPT" or route == "CBEJTJ" or route == "JTJCBE" or route == "CBESA" or route == "SACBE" or route == "EDTPJ" or route == "TPJED" or route == "EDIGU" or route == "IGUED" or route == "KRRDG" or route == "DGKRR" or route == "EDPGTA" or route == "PGTEDA" or route == "EDPGTB" or route == "PGTEDB":
+                if route == "JTJED" or route == "EDJTJ" or route == "SAMTPP" or route == "MTPPSA" or route == "TPTED" or route == "EDTPT" or route == "CBEJTJ" or route == "JTJCBE" or route == "CBESA" or route == "SACBE" or route == "EDIGU" or route == "IGUED" or route == "EDPGTA" or route == "PGTEDA" or route == "EDPGTB" or route == "PGTEDB":
                     sb[i] = ((sb[i]/2)*72)/1000
-                if route == "SATPJ" or route == "TPJSA":
+                if route == "SATPJ" or route == "TPJSA" or route == "EDTPJ" or route == "TPJED" or route == "KRRDG" or route == "DGKRR":
                     sb[i] = ((sb[i])*72)/1000
                 #print(type(sb[i]))
                 #print(sb[i])
@@ -2020,9 +2047,9 @@ def chartcreation (request) :
                 ea[i] = int(ea[i])
                 eb[i] = eb[i]/1000
                 #print(eb[i])
-                if route == "JTJED" or route == "TPTED" or route == "EDTPJ" or route == "SATPJ" or route == "JTJCBE" or route == "SACBE" or route == "EDIGU" or route == "KRRDG" or route == "EDPGTA" or route == "EDPGTB":
+                if route == "JTJED" or route == "TPTED" or route == "SAMTPP" or route == "EDTPJ" or route == "SATPJ" or route == "JTJCBE" or route == "SACBE" or route == "EDIGU" or route == "KRRDG" or route == "EDPGTA" or route == "EDPGTB":
                     ea[i] = ea[i] + eb[i] +0.7
-                if route == "EDJTJ" or route == "EDTPT" or route == "TPJED" or route == "TPJSA" or route == "CBEJTJ" or route == "CBESA" or route == "IGUED" or route == "DGKRR" or route == "PGTEDA" or route == "PGTEDB":
+                if route == "EDJTJ" or route == "EDTPT" or route == "MTPPSA" or route == "TPJED" or route == "TPJSA" or route == "CBEJTJ" or route == "CBESA" or route == "IGUED" or route == "DGKRR" or route == "PGTEDA" or route == "PGTEDB":
                     ea[i] = ea[i] + eb[i] - 0.7
                 ea[i] = round(ea[i],2)
                 ea[i] = str(ea[i])
@@ -2033,15 +2060,15 @@ def chartcreation (request) :
                 ea[i] = int(ea[i])
                 #print(ea[i])
                 #print(eb[i])
-                if route == "JTJED" or route == "EDJTJ" or route == "TPTED" or route == "EDTPT" or route == "CBEJTJ" or route == "JTJCBE" or route == "CBESA" or route == "SACBE" or route == "EDTPJ" or route == "TPJED" or route == "EDIGU" or route == "IGUED" or route == "KRRDG" or route == "DGKRR" or route == "EDPGTA" or route == "PGTEDA" or route == "EDPGTB" or route == "PGTEDB":
+                if route == "JTJED" or route == "EDJTJ" or route == "SAMTPP" or route == "MTPPSA" or route == "TPTED" or route == "EDTPT" or route == "CBEJTJ" or route == "JTJCBE" or route == "CBESA" or route == "SACBE"  or route == "EDIGU" or route == "IGUED" or route == "EDPGTA" or route == "PGTEDA" or route == "EDPGTB" or route == "PGTEDB":
                     eb[i] = ((eb[i]/2)*72)/1000
-                if route == "SATPJ" or route == "TPJSA":
+                if route == "SATPJ" or route == "TPJSA" or route == "EDTPJ" or route == "TPJED" or route == "KRRDG" or route == "DGKRR":
                     eb[i] = ((eb[i])*72)/1000
                 #print(type(eb[i]))
                 #print(eb[i])
-                if route == "JTJED" or route == "TPTED" or route == "EDTPJ" or route == "SATPJ" or route == "JTJCBE" or route == "SACBE" or route == "EDIGU" or route == "KRRDG" or route == "EDPGTA" or route == "EDPGTB":
+                if route == "JTJED" or route == "TPTED" or route == "SAMTPP" or route == "EDTPJ" or route == "SATPJ" or route == "JTJCBE" or route == "SACBE" or route == "EDIGU" or route == "KRRDG" or route == "EDPGTA" or route == "EDPGTB":
                     ea[i] = ea[i] + eb[i] +0.7
-                if route == "EDJTJ" or route == "EDTPT" or route == "TPJED" or route == "TPJSA" or route == "CBEJTJ" or route == "CBESA" or  route == "IGUED" or route == "DGKRR" or route == "PGTEDA" or route == "PGTEDB":
+                if route == "EDJTJ" or route == "EDTPT" or route == "MTPPSA" or route == "TPJED" or route == "TPJSA" or route == "CBEJTJ" or route == "CBESA" or  route == "IGUED" or route == "DGKRR" or route == "PGTEDA" or route == "PGTEDB":
                     ea[i] = ea[i] + eb[i] - 0.7
                 ea[i] = round(ea[i],2)
                 #print(ea[i])
@@ -2104,6 +2131,18 @@ def chartcreation (request) :
                         cautionminvalue = 141.5
                     if cautioncheckboxvalue[i] == "SA - KRR":
                         cautionminvalue = 162.22
+                    start[i] = start[i] - cautionminvalue
+                if cautionmin == "SAMTPP":
+                    if cautioncheckboxvalue[i] == "SA - MGSJ":
+                        cautionminvalue = 333.1
+                    if cautioncheckboxvalue[i] == "MGSJ - MTPP":
+                        cautionminvalue = -3.93
+                    start[i] = start[i] - cautionminvalue
+                if cautionmin == "MTPPSA":
+                    if cautioncheckboxvalue[i] == "MGSJ - MTPP":
+                        cautionminvalue = 41.4
+                    if cautioncheckboxvalue[i] == "SA - MGSJ":
+                        cautionminvalue = 288.12
                     start[i] = start[i] - cautionminvalue
                 if cautionmin == "JTJCBE":
                     if cautioncheckboxvalue[i] == "JTJ - IGU":
@@ -2179,6 +2218,18 @@ def chartcreation (request) :
                         cautionminvalue = 141.5
                     if cautioncheckboxvalue[i] == "SA - KRR":
                         cautionminvalue = 162.22
+                    end[i] = end[i] - cautionminvalue
+                if cautionmin == "SAMTPP":
+                    if cautioncheckboxvalue[i] == "SA - MGSJ":
+                        cautionminvalue = 334.5
+                    if cautioncheckboxvalue[i] == "MGSJ - MTPP":
+                        cautionminvalue = -3.93
+                    end[i] = end[i] - cautionminvalue
+                if cautionmin == "MTPPSA":
+                    if cautioncheckboxvalue[i] == "MGSJ - MTPP":
+                        cautionminvalue = 41.4
+                    if cautioncheckboxvalue[i] == "SA - MGSJ":
+                        cautionminvalue = 286.72
                     end[i] = end[i] - cautionminvalue
                 if cautionmin == "JTJCBE":
                     if cautioncheckboxvalue[i] == "JTJ - IGU":
