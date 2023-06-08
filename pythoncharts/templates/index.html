@@ -35,6 +35,12 @@
               <option selected value="">Please select Route</option>
               <option value="EDJTJ">ED - JTJ</option>
               <option value="JTJED">JTJ - ED</option>
+              <option value="SAED">SA - ED</option>
+              <option value="EDSA">ED - SA</option>
+              <option value="JTJKPPR">JTJ - KPPR</option>
+              <option value="KPPRJTJ">KPPR - JTJ</option>
+
+
               <option value="EDTPT">ED - TPT</option>
               <option value="TPTED">TPT - ED</option>
               <option value="SATPJ">SA - TPJ</option>
@@ -51,10 +57,21 @@
               <option value="IGUED">IGU - ED</option>
               <option value="KRRDG">KRR - DG</option>
               <option value="DGKRR">DG - KRR</option>
+              <option value="EDPTJ">ED - PTJ(VIA IGU)</option>
+              <option value="PTJED">PTJ - ED(VIA IGU)</option>
+
               <option value="EDPGTA">ED - PGT (A-LINE)</option>
               <option value="PGTEDA">PGT - ED(A-LINE)</option>
+              <option value="EDMDKIA">ED - MDKI(A-LINE)</option>
+              <option value="MDKIEDA">MDKI - ED(A-LINE)</option>
+
+
               <option value="EDPGTB">ED - PGT(B-LINE)</option>
               <option value="PGTEDB">PGT - ED(B-LINE)</option>
+
+              <option value="EDMDKIB">ED - MDKI(B-LINE)</option>
+              <option value="MDKIEDB">MDKI - ED(B-LINE)</option>
+
               <!--
               <option value="3" ng-disabled="true">XXXXX</option>
               -->
@@ -479,11 +496,33 @@
             $scope.dropvalueinput = "JTJ"
             $scope.Cautionorders = [];
           }
+          if ($scope.dropvalue == "SAED")
+          {
+            $scope.dropvalueinput = "SA"
+            $scope.Cautionorders = [];
+          }
+          if ($scope.dropvalue == "EDSA")
+          {
+            $scope.dropvalueinput = "ED"
+            $scope.Cautionorders = [];
+          }
           if ($scope.dropvalue == "EDJTJ")
           {
             $scope.dropvalueinput = "ED"
             $scope.Cautionorders = [];
           }
+          if ($scope.dropvalue == "JTJKPPR")
+          {
+            $scope.dropvalueinput = "JTJ"
+            $scope.Cautionorders = [];
+          }
+          if ($scope.dropvalue == "KPPRJTJ")
+          {
+            $scope.dropvalueinput = "KPPR"
+            $scope.Cautionorders = [];
+          }
+
+
           if ($scope.dropvalue == "TPTED")
           {
             $scope.dropvalueinput = "TPT"
@@ -588,6 +627,16 @@
             $scope.dropvalueinput = "DG"
             $scope.Cautionorders = [];
           }
+          if ($scope.dropvalue == "EDPTJ")
+          {
+            $scope.dropvalueinput = "ED"
+            $scope.Cautionorders = [];
+          }
+          if ($scope.dropvalue == "PTJED")
+          {
+            $scope.dropvalueinput = "PTJ"
+            $scope.Cautionorders = [];
+          }
           if ($scope.dropvalue == "PGTEDA")
           {
             $scope.dropvalueinput = "PGT"
@@ -598,6 +647,16 @@
             $scope.dropvalueinput = "ED"
             $scope.Cautionorders = [];
           }
+          if ($scope.dropvalue == "EDMDKIA")
+          {
+            $scope.dropvalueinput = "ED"
+            $scope.Cautionorders = [];
+          }
+          if ($scope.dropvalue == "MDKIEDA")
+          {
+            $scope.dropvalueinput = "MDKI"
+            $scope.Cautionorders = [];
+          }
           if ($scope.dropvalue == "EDPGTB")
           {
             $scope.dropvalueinput = "ED"
@@ -606,6 +665,16 @@
           if ($scope.dropvalue == "PGTEDB")
           {
             $scope.dropvalueinput = "PGT"
+            $scope.Cautionorders = [];
+          }
+          if ($scope.dropvalue == "EDMDKIB")
+          {
+            $scope.dropvalueinput = "ED"
+            $scope.Cautionorders = [];
+          }
+          if ($scope.dropvalue == "MDKIEDB")
+          {
+            $scope.dropvalueinput = "MDKI"
             $scope.Cautionorders = [];
           }
         };
