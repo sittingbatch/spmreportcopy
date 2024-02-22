@@ -30,8 +30,26 @@
             <br>
             <input name="Cautionorders" type="hidden" value="{[{ Cautionorders }]}" />
             <input name="cautionorderlength" type="hidden" value="{[{ Cautionorders.length }]}" />
+            <input name="routeset" type="hidden" value="{[{ routeset }]}" />
 
-            <select class="form-select col-sm-10" aria-label="Default select example" required="required" name="routeid" ng-model="dropvalue" ng-click=dropvaluefun()>
+            <div class="input-group">
+               <div class="input-group-text">
+                  <input class="form-check-input mt-0" type = "checkbox" ng-model = "selectstation" ng-click = "routecheck()" value="Select route by Station">
+                  <br>
+               </div>
+               <p>&nbsp;</p>
+               <div>
+                  <label class="col-form-label">Select route by Station</label>
+               </div>
+            </div>
+
+          <p></p>
+
+            <div ng-hide = "selectstation2">
+            <!--
+            <select class="form-select col-sm-10" aria-label="Default select example"  required = "required" name="routeid" ng-model="dropvalue" ng-click=dropvaluefun()>
+            -->
+            <select class="form-select col-sm-10" aria-label="Default select example"  name="routeid" ng-model="dropvalue" ng-click=dropvaluefun()>
               <option selected value="">Please select Route</option>
               <option value="JTJED">JTJ - ED</option>
               <option value="EDJTJ">ED - JTJ</option>
@@ -97,12 +115,48 @@
               -->
             </select>
 
+              
+            </div>
+
             <div class="input-group">
                <label class="col-sm-2 col-form-label">Starting station:</label><br>
             </div>
             <div class="col-sm-10">
                <input class="form-control" type="text" name="ststn" required="required" value="{{ sstn }}"  ng-model="dropvalueinput" oninput="this.value = this.value.toUpperCase()" style="width: 120%">
             </div>
+
+
+
+            <div ng-show = "selectstation3">
+
+            <div class="input-group">
+               <label class="col-sm-2 col-form-label">Ending station:</label><br>
+            </div>
+            <div class="col-sm-10">
+               <input class="form-control" type="text" name="edstn" required="required" value="{{ estn }}"  ng-model="dropvalueinputend" oninput="this.value = this.value.toUpperCase()" style="width: 120%">
+            </div>
+
+            <div class="input-group">
+               <label class="col-sm-2 col-form-label">Via station:</label><br>
+            </div>
+            <select class="form-select col-sm-10" aria-label="Default select example"  name="vistn" ng-model="dropvalueinputvia">
+              <option selected value="">NONE</option>
+              <option value="ED">ED</option>
+              <option value="KRR">KRR</option>
+              <option value="MGSJ">MGSJ</option>
+              <option value="IGU">IGU</option>
+            </select>
+
+
+            
+          <p></p>
+ 
+            <button class="btn btn-primary" ng-hide = "routecheckbtnhide" ng-click = "checkroute()">Check Route</button>
+
+
+            </div>
+
+
 <!--
             <div class="input-group">
                <label class="col-sm-2 col-form-label">Please enter Distance values:</label><br>
@@ -117,11 +171,16 @@
                <textarea  class="form-control" ng-model="spdlist" ng-list="&#10;" ng-trim="false" name="spdlist" required="required"></textarea>
             </div>
   -->
+
+          <div ng-hide = "selectstation1">
+            
+          
               <div class="mb-3">
           <label for="formFile" class="form-label">Please load Speedometer file with distance and speed values</label>
                <input  class="form-control" type="file" name="spmfile" required="required" id="spmfile">
         </div>
-            <br>
+          <p></p>
+           
             <div class="mb-3">
           <label for="formFile" class="form-label">Please enter the MAXIMUM PERMISSIBLE SPEED of the train in the section:</label>
                <input  class="form-control" type="number" name="mps" max="110"  ng-model = "mps" required="required">
@@ -251,6 +310,7 @@
                </div>
                <br>
                <button class="btn btn-primary" type="submit" value="submit">Submit</button>
+            </div>
             </div>
       </form>
       </div>
@@ -451,6 +511,263 @@
         $scope.enterplotdisabled = false;
         $scope.showfullgraphdiv = true;
         $scope.timegraph = false;
+        $scope.selectstation1 = false;
+        $scope.selectstation2 = false;
+        $scope.selectstation3 = false;
+        $scope.routeset = [];
+
+        $scope.routecheck = function()
+        {
+          $scope.selectstation1 = !$scope.selectstation1;
+          $scope.selectstation2 = !$scope.selectstation2;
+          $scope.selectstation3 = !$scope.selectstation3;
+
+          if($scope.selectstation == true)
+          {
+            $scope.selectstation3 = true;
+            $scope.selectstation2 = true;
+            $scope.routecheckbtnhide = false;
+          };
+        };
+
+/*
+  $scope.dropvalueinput = "SA";
+    $scope.dropvalueinputend = "TPJ";
+ */
+    $scope.routes = [["JTJ","TPT","KEY","SLY","DST","DPI","MAP","BDY","BQI","LCR","DSPT","TNT","KPPR","MGSJ","SA","VRPD","DC","MVPM","SGE","ANU","CV","ED","TPM","PY","IGR","VZ","UKL","TUP","VNJ","SNO","SUU","IGU","PTJ"],["PTJ","IGU","SUU","SNO","VNJ","TUP","UKL","VZ","IGR","PY","TPM","ED","CV","ANU","SGE","MVPM","DC","VRPD","SA","MGSJ","KPPR","TNT","DSPT","LCR","BQI","BDY","MAP","DPI","DST","SLY","KEY","TPT","JTJ"],["SA","MALR","RASP","KLGN","NMKL","MONR","KRR"],["KRR","MONR","NMKL","KLGN","RASP","MALR","SA"],["ED","CVD","PAS","URL","KMD","PGR","MPLM","KRR","VRQ","MYU","MMH","LP","KLT","PLI","PGN","EL","MTNL","TP","TPJ"],["TPJ","TP","MTNL","EL","PGN","PLI","KLT","LP","MMH","MYU","VRQ","KRR","MPLM","PGR","KMD","URL","PAS","CVD","ED"],["IGU","PLMD","CBF","CBE"],["CBE","CBF","PLMD","IGU"],["MGSJ","OML","MCRD","MTDM","MTPP"],["MTPP","MTDM","MCRD","OML","MGSJ"]];
+    
+ 
+ $scope.checkroute = function() {
+ 
+ $scope.firstroutes = [];
+ $scope.lastroutes = [];
+$scope.new = [];
+$scope.splitroute = [];
+$scope.newcheck = 0;
+$scope.routefound = 0;
+
+$scope.firstmulroutes = [];
+$scope.lastmulroutes = [];
+$scope.lastmulfinal = 0;
+$scope.viastation = " ";
+$scope.via = [];
+
+
+if($scope.routefound == 0)
+{
+  for(var i = 0;i<$scope.routes.length;i++)
+    {
+      $scope.fstn = 0;
+        $scope.lstn = 0;
+      for(var a = 0;a<$scope.routes[i].length;a++)
+        {
+          if($scope.routes[i][a] == $scope.dropvalueinput)
+            {
+              $scope.fstn = 1;
+            };
+            if($scope.routes[i][a] == $scope.dropvalueinputend)
+            {
+              $scope.lstn = 1;
+            };
+        };
+        if($scope.fstn == 1 && $scope.lstn == 1)
+        {
+          $scope.routefound = "found";
+            $scope.routetype = "conroute";
+            //$window.alert("found");
+        };
+    };
+};
+
+if($scope.routefound == 0)
+{
+  for(var i = 0;i<$scope.routes.length;i++)
+    {
+      
+      for(var a = 0;a<$scope.routes[i].length;a++)
+      {
+        if ($scope.routes[i][a] == $scope.dropvalueinput)
+        {
+          $scope.firstmulroutes.push(i);
+        };
+      };
+        
+        
+      for(var b = 0;b<$scope.routes[i].length;b++)
+      {
+        if ($scope.routes[i][b] == $scope.dropvalueinputend)
+        {
+          $scope.lastmulroutes.push(i);
+        };
+      };
+       
+    };
+    
+  
+    
+    
+      for(var i = 0;i<$scope.firstmulroutes.length;i++)
+        {
+          for(var a = 0;a<($scope.routes[$scope.firstmulroutes[i]]).length;a++)
+            { 
+              //$scope.viastation.push($scope.routes[$scope.firstmulroutes[i]][a]);
+                for(var c = 0;c<$scope.lastmulroutes.length;c++)
+                {
+                  for(var b = 0;b<$scope.routes[$scope.lastmulroutes[c]].length;b++)
+                  {
+                  if($scope.routes[$scope.firstmulroutes[i]][a] == $scope.routes[$scope.lastmulroutes[c]][b])
+                    {
+                      $scope.viastation = $scope.routes[$scope.firstmulroutes[i]][a];
+                        $scope.via.push($scope.routes[$scope.firstmulroutes[i]][a]);
+                    };
+                  
+                  };
+                };
+              
+            };
+        };
+        
+        if($scope.dropvalueinputvia != null)
+        {
+          $scope.viastation = $scope.dropvalueinputvia;
+        }
+   
+    $scope.firstarr = Array.from('N'.repeat($scope.firstmulroutes.length));
+    $scope.lastarr = Array.from('Y'.repeat($scope.lastmulroutes.length));
+
+    $scope.firstsplit = [];
+    $scope.lastsplit = [];
+   
+    for(var i = 0;i<$scope.firstmulroutes.length;i++)
+    {
+      for(var b = ($scope.routes[$scope.firstmulroutes[i]].indexOf($scope.dropvalueinput));b<$scope.routes[$scope.firstmulroutes[i]].length;b++)
+        {
+          if($scope.routes[$scope.firstmulroutes[i]][b] == $scope.viastation)
+            {
+              $scope.firstarr[i] = "Y";
+            };
+        };
+    };
+    
+    for(var i = 0;i<$scope.firstmulroutes.length;i++)
+    {
+      if($scope.firstarr[i] == "Y")
+        {
+          for(var a = ($scope.routes[$scope.firstmulroutes[i]].indexOf($scope.dropvalueinput));a<($scope.routes[$scope.firstmulroutes[i]].indexOf($scope.viastation));a++)
+            {
+              $scope.firstsplit.push($scope.routes[$scope.firstmulroutes[i]][a]);
+            };
+        };
+    };
+    
+    
+    for(var i = 0;i<$scope.lastmulroutes.length;i++)
+    { 
+      $scope.viastationfound = false;
+      for(var a = 0;a<$scope.routes[$scope.lastmulroutes[i]].length;a++)
+        {
+          if($scope.routes[$scope.lastmulroutes[i]][a] == $scope.viastation)
+            {
+              $scope.viastationfound = true;
+            };
+        };
+        if($scope.viastationfound == false)
+        {
+          $scope.lastarr[i] = "N";
+        };
+    };
+    
+    
+    for(var i = 0;i<$scope.lastmulroutes.length;i++)
+    {
+      for(var b = ($scope.routes[$scope.lastmulroutes[i]].indexOf($scope.dropvalueinputend));b<$scope.routes[$scope.lastmulroutes[i]].length;b++)
+        {
+          if($scope.routes[$scope.lastmulroutes[i]][b] == $scope.viastation)
+            {
+              $scope.lastarr[i] = "N";
+            };
+        };
+    };
+    
+    
+    
+    for(var i = 0;i<$scope.lastmulroutes.length;i++)
+    {
+      if($scope.lastarr[i] == "Y")
+        {
+          for(var a = ($scope.routes[$scope.lastmulroutes[i]].indexOf($scope.viastation));a<=($scope.routes[$scope.lastmulroutes[i]].indexOf($scope.dropvalueinputend));a++)
+            {
+              $scope.lastsplit.push($scope.routes[$scope.lastmulroutes[i]][a]);
+            };
+        };
+    };
+    
+    
+    $scope.splitroute = $scope.firstsplit.concat($scope.lastsplit);
+ 
+if($scope.firstsplit.length !=0 && $scope.lastsplit.length !=0)
+{
+  $scope.routefound = "found";
+    $scope.routetype = "splitroute";
+};
+
+};
+
+
+if($scope.routefound == 0)
+{
+  $window.alert("Route not found, please select from available routes");
+};
+
+
+
+for(var i = 0;i<$scope.firstmulroutes.length;i++)
+{
+  if($scope.firstarr[i] == "Y")
+    {
+      $scope.fstnarrind = $scope.firstmulroutes[i];
+    };
+};
+
+for(var i = 0;i<$scope.lastmulroutes.length;i++)
+{
+  if($scope.lastarr[i] == "Y")
+    {
+      $scope.lstnarrind = $scope.lastmulroutes[i];
+    };
+};
+
+$scope.routeset = [$scope.routefound,$scope.fstnarrind,$scope.lstnarrind,$scope.routetype];
+
+$window.alert($scope.routeset);
+
+/*
+$window.alert($scope.routefound);
+$window.alert($scope.fstnarrind);
+$window.alert($scope.lstnarrind);
+$window.alert($scope.viastation);
+$window.alert($scope.routetype);
+$window.alert($scope.splitroute);
+*/
+
+if($scope.routefound == 0)
+{
+  $scope.selectstation = false;
+  $scope.selectstation2 = false;
+  $scope.selectstation1 = false;
+  $scope.selectstation3 = false;
+};
+if($scope.routefound != 0)
+{
+  $scope.selectstation = false;
+  $scope.selectstation1 = false;
+  $scope.selectstation2 = true;
+  $scope.selectstation3 = true;
+  $scope.routecheckbtnhide = true;
+};
+
+
+};
 
 
       
@@ -526,6 +843,7 @@
           if ($scope.dropvalue == "JTJED")
           {
             $scope.dropvalueinput = "JTJ"
+            $scope.dropvalueinputend = "ED"
             $scope.Cautionorders = [];
           }
           if ($scope.dropvalue == "SAED")
@@ -1040,7 +1358,8 @@
 
             $scope.loadingfun = function()
             {
-              if ($scope.dropvalue != null && $scope.dropvalueinput != null && $scope.mps !=null && $scope.nameoflp != null && $scope.trainno != null && $scope.locono != null && $scope.startdate != null && $scope.enddate != null) 
+              //if ($scope.dropvalue != null && $scope.dropvalueinput != null && $scope.mps !=null && $scope.nameoflp != null && $scope.trainno != null && $scope.locono != null && $scope.startdate != null && $scope.enddate != null)
+              if ($scope.dropvalueinput != null && $scope.mps !=null && $scope.nameoflp != null && $scope.trainno != null && $scope.locono != null && $scope.startdate != null && $scope.enddate != null) 
               {
               var spmfile = document.getElementById("spmfile");
               if(spmfile.files.length == 0 )
